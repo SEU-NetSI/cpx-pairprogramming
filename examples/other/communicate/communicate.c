@@ -16,9 +16,10 @@ void mapInit()
 
     // print octoMap
     cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]sizeof(octoNode) = %lu\n", sizeof(octoNode_t));
-    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]octoTree->center = (%d, %d, %d), origin = (%d, %d, %d), resolution = %d, maxDepth = %d, width = %d\n", 
+    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]octoTree->center = (%d, %d, %d), origin = (%d, %d, %d)", 
         octoMap->octoTree->center.x, octoMap->octoTree->center.y, octoMap->octoTree->center.z, 
-        octoMap->octoTree->origin.x, octoMap->octoTree->origin.y, octoMap->octoTree->origin.z,
+        octoMap->octoTree->origin.x, octoMap->octoTree->origin.y, octoMap->octoTree->origin.z);
+    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]octoTree->resolution = %d, maxDepth = %d, width = %d\n",
         octoMap->octoTree->resolution, octoMap->octoTree->maxDepth, octoMap->octoTree->width);
     cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]root->children = %d, logOdds = %d, isLeaf = %d\n", 
         octoMap->octoTree->root->children, octoMap->octoTree->root->logOdds, octoMap->octoTree->root->isLeaf);
@@ -27,18 +28,41 @@ void mapInit()
         octoMap->octoNodeSet->length, octoMap->octoNodeSet->numFree, octoMap->octoNodeSet->numOccupied);
 }
 
+void CPXListeningTask(void)
+{
+    cpxInit();
+    cpxEnableFunction(CPX_F_APP);
+    mapInit();
+    octoMap_t* octoMap = &octoMapData;
+
+    while (1) 
+    {
+        cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Listening...\n");
+        cpxReceivePacketBlocking(CPX_F_APP, &packet);
+        coordinate_pair_t coord_pairs[3];
+        memcpy(coord_pairs, &packet.data[0], packet.dataLength);
+        cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]First pair: (%d, %d, %d) - (%d, %d, %d)\n", 
+            coord_pairs[0].startPoint.x, coord_pairs[0].startPoint.y, coord_pairs[0].startPoint.z,
+            coord_pairs[0].endPoint.x, coord_pairs[0].endPoint.y, coord_pairs[0].endPoint.z);
+        cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]First pair: (%d, %d, %d) - (%d, %d, %d)\n", 
+            coord_pairs[1].startPoint.x, coord_pairs[1].startPoint.y, coord_pairs[1].startPoint.z,
+            coord_pairs[1].endPoint.x, coord_pairs[1].endPoint.y, coord_pairs[1].endPoint.z);
+        cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]First pair: (%d, %d, %d) - (%d, %d, %d)\n", 
+            coord_pairs[2].startPoint.x, coord_pairs[2].startPoint.y, coord_pairs[2].startPoint.z,
+            coord_pairs[2].endPoint.x, coord_pairs[2].endPoint.y, coord_pairs[2].endPoint.z);
+    }
+}
+
 void CPXListeningInit(void)
 {
     cpxInit();
     cpxEnableFunction(CPX_F_APP);
     mapInit();
     octoMap_t* octoMap = &octoMapData;
+
     while (1)
     {
         cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Listening...\n");
-
-
-
 
         cpxReceivePacketBlocking(CPX_F_APP,&packet);
         uint8_t other_id=packet.data[0];
@@ -118,5 +142,5 @@ void itoa(uint8_t number,char*numberArray)
 int main(void)
 {
     pi_bsp_init();
-  return pmsis_kickoff((void *)CPXListeningInit);
+  return pmsis_kickoff((void *)CPXListeningTask);
 }
