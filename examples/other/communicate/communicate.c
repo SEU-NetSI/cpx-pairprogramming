@@ -68,8 +68,8 @@ void CPXListeningInit(void)
         cpxReceivePacketBlocking(CPX_F_APP,&packet);
         // uint8_t other_id=packet.data[0];
         // uint8_t reqType=packet.data[1];
-        coordinate_t coords[1];
-        // coordinate_pair_t coords[3];
+        // coordinate_t coords[5];
+        coordinate_pair_t coords[3];
         memcpy(coords, &packet.data[0], packet.dataLength-0*sizeof(uint8_t));
         char msg[50]="[AD] Get Msg from: ";
         // itoa(other_id,msg+ strlen(msg)-1);
