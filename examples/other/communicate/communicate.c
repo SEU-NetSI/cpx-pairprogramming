@@ -16,7 +16,7 @@ void mapInit()
 
     // print octoMap
     cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]sizeof(octoNode) = %lu\n", sizeof(octoNode_t));
-    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]octoTree->center = (%d, %d, %d), origin = (%d, %d, %d)", 
+    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]octoTree->center = (%d, %d, %d), origin = (%d, %d, %d)\n", 
         octoMap->octoTree->center.x, octoMap->octoTree->center.y, octoMap->octoTree->center.z, 
         octoMap->octoTree->origin.x, octoMap->octoTree->origin.y, octoMap->octoTree->origin.z);
     cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]octoTree->resolution = %d, maxDepth = %d, width = %d\n",
@@ -39,6 +39,7 @@ void CPXListeningTask(void)
     {
         cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Listening...\n");
         cpxReceivePacketBlocking(CPX_F_APP, &packet);
+        cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Received!!!");
         coordinate_pair_t coord_pairs[3];
         memcpy(coord_pairs, &packet.data[0], packet.dataLength);
         cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]First pair: (%d, %d, %d) - (%d, %d, %d)\n", 
