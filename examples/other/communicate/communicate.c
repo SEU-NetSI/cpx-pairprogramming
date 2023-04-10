@@ -39,18 +39,35 @@ void CPXListeningTask(void)
     {
         cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Listening...\n");
         cpxReceivePacketBlocking(CPX_F_APP, &packet);
-        cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Received!!!");
-        coordinate_pair_t coord_pairs[3];
-        memcpy(coord_pairs, &packet.data[0], packet.dataLength);
-        cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]First pair: (%d, %d, %d) - (%d, %d, %d)\n", 
-            coord_pairs[0].startPoint.x, coord_pairs[0].startPoint.y, coord_pairs[0].startPoint.z,
-            coord_pairs[0].endPoint.x, coord_pairs[0].endPoint.y, coord_pairs[0].endPoint.z);
-        cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]First pair: (%d, %d, %d) - (%d, %d, %d)\n", 
-            coord_pairs[1].startPoint.x, coord_pairs[1].startPoint.y, coord_pairs[1].startPoint.z,
-            coord_pairs[1].endPoint.x, coord_pairs[1].endPoint.y, coord_pairs[1].endPoint.z);
-        cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]First pair: (%d, %d, %d) - (%d, %d, %d)\n", 
-            coord_pairs[2].startPoint.x, coord_pairs[2].startPoint.y, coord_pairs[2].startPoint.z,
-            coord_pairs[2].endPoint.x, coord_pairs[2].endPoint.y, coord_pairs[2].endPoint.z);
+        uint8_t sourceId = packet.data[0];
+        uint8_t reqType = packet.data[1];
+        uint16_t seq = packet.data[2];
+        if (reqType == MAPPING_REQ) {
+            uint8_t mappingRequestPayloadLength = packet.data[3];
+            coordinate_pair_t mappingRequestPayload[mappingRequestPayloadLength];
+            memcpy(mappingRequestPayload, &packet.data[4], sizeof(coordinate_pair_t)*mappingRequestPayloadLength);
+            cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]First pair: (%d, %d, %d) - (%d, %d, %d)\n", 
+                mappingRequestPayload[0].startPoint.x, mappingRequestPayload[0].startPoint.y, mappingRequestPayload[0].startPoint.z,
+                mappingRequestPayload[0].endPoint.x, mappingRequestPayload[0].endPoint.y, mappingRequestPayload[0].endPoint.z);
+            cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Second pair: (%d, %d, %d) - (%d, %d, %d)\n", 
+                mappingRequestPayload[1].startPoint.x, mappingRequestPayload[1].startPoint.y, mappingRequestPayload[1].startPoint.z,
+                mappingRequestPayload[1].endPoint.x, mappingRequestPayload[1].endPoint.y, mappingRequestPayload[1].endPoint.z);
+        }
+
+
+
+        // cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Received!!!\n");
+        // coordinate_pair_t coord_pairs[3];
+        // memcpy(coord_pairs, &packet.data[0], packet.dataLength);
+        // cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]First pair: (%d, %d, %d) - (%d, %d, %d)\n", 
+        //     coord_pairs[0].startPoint.x, coord_pairs[0].startPoint.y, coord_pairs[0].startPoint.z,
+        //     coord_pairs[0].endPoint.x, coord_pairs[0].endPoint.y, coord_pairs[0].endPoint.z);
+        // cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]First pair: (%d, %d, %d) - (%d, %d, %d)\n", 
+        //     coord_pairs[1].startPoint.x, coord_pairs[1].startPoint.y, coord_pairs[1].startPoint.z,
+        //     coord_pairs[1].endPoint.x, coord_pairs[1].endPoint.y, coord_pairs[1].endPoint.z);
+        // cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]First pair: (%d, %d, %d) - (%d, %d, %d)\n", 
+        //     coord_pairs[2].startPoint.x, coord_pairs[2].startPoint.y, coord_pairs[2].startPoint.z,
+        //     coord_pairs[2].endPoint.x, coord_pairs[2].endPoint.y, coord_pairs[2].endPoint.z);
     }
 }
 
