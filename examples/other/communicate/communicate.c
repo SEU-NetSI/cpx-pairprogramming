@@ -144,5 +144,5 @@ void itoa(uint8_t number,char*numberArray)
 int main(void)
 {
     pi_bsp_init();
-  return pmsis_kickoff((void *)CPXListeningInit);
+  return pmsis_kickoff((void *)CPXListeningTask);
 }
