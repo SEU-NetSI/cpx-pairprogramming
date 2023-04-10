@@ -66,25 +66,26 @@ void CPXListeningInit(void)
         cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Listening...\n");
 
         cpxReceivePacketBlocking(CPX_F_APP,&packet);
-        uint8_t other_id=packet.data[0];
-        uint8_t reqType=packet.data[1];
-        coordinate_t coords[5];
-        memcpy(coords, &packet.data[2], packet.dataLength-2*sizeof(uint8_t));
+        // uint8_t other_id=packet.data[0];
+        // uint8_t reqType=packet.data[1];
+        // coordinate_t coords[5];
+        coordinate_pair_t coords[3];
+        memcpy(coords, &packet.data[0], packet.dataLength-0*sizeof(uint8_t));
         char msg[50]="[AD] Get Msg from: ";
-        itoa(other_id,msg+ strlen(msg)-1);
-        strcat(msg," ,reqType: ");
-        msg[strlen(msg)]=reqType+'0';
-        strcat(msg," ,coord1: ");
-        char coord1[10];
-        coord1[0]='(';
-        coord1[1]=coords[0].x+'0';
-        coord1[2]=',';
-        coord1[3]=coords[0].y+'0';
-        coord1[4]=',';
-        coord1[5]=coords[0].z+'0';
-        coord1[6]=')';
-        coord1[7]='\n';
-        strcat(msg,coord1);
+        // itoa(other_id,msg+ strlen(msg)-1);
+        // strcat(msg," ,reqType: ");
+        // msg[strlen(msg)]=reqType+'0';
+        // strcat(msg," ,coord1: ");
+        // char coord1[10];
+        // coord1[0]='(';
+        // coord1[1]=coords[0].x+'0';
+        // coord1[2]=',';
+        // coord1[3]=coords[0].y+'0';
+        // coord1[4]=',';
+        // coord1[5]=coords[0].z+'0';
+        // coord1[6]=')';
+        // coord1[7]='\n';
+        // strcat(msg,coord1);
         cpxPrintToConsole(LOG_TO_CRTP, msg);
     }
 }
@@ -143,5 +144,5 @@ void itoa(uint8_t number,char*numberArray)
 int main(void)
 {
     pi_bsp_init();
-  return pmsis_kickoff((void *)CPXListeningTask);
+  return pmsis_kickoff((void *)CPXListeningInit);
 }
