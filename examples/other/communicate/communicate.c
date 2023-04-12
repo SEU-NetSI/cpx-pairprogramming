@@ -110,7 +110,7 @@ void OctoMapTestTask(void)
         coordinate_t endPoint = {100, 100, 100};
         octoTreeRayCasting(octoMap->octoTree, octoMap, &startPoint, &endPoint);
         updateTime++;
-        if (updateTime % 100000 == 0) {
+        if (updateTime % 10000 == 0) {
             // double endTime = pi_time();
             cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Update %d times, time: %f\n", updateTime);
             // startTime = endTime;
