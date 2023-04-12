@@ -92,24 +92,12 @@ void CPXListeningInit(void)
     }
 }
 
-void OctoMapTest(void)
+void OctoMapTesrTask(void)
 {
-    octoMap_t* octoMap = &octoMapData;
-    octoMapInit(octoMap);
+    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Hello world\n");
+    // octoMap_t* octoMap = &octoMapData;
+    // mapInit();
 
-    // print octoMap
-    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]sizeof(octoNode) = %lu\n", sizeof(octoNode_t));
-    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]octoTree->center = (%d, %d, %d), origin = (%d, %d, %d)\n", 
-        octoMap->octoTree->center.x, octoMap->octoTree->center.y, octoMap->octoTree->center.z, 
-        octoMap->octoTree->origin.x, octoMap->octoTree->origin.y, octoMap->octoTree->origin.z);
-    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]octoTree->resolution = %d, maxDepth = %d, width = %d\n",
-        octoMap->octoTree->resolution, octoMap->octoTree->maxDepth, octoMap->octoTree->width);
-    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]root->children = %d, logOdds = %d, isLeaf = %d\n", 
-        octoMap->octoTree->root->children, octoMap->octoTree->root->logOdds, octoMap->octoTree->root->isLeaf);
-    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]octoNodeSet->freeQE = %d, fullQE = %d, length = %d, numFree = %d, numOccupied = %d\n", 
-        octoMap->octoNodeSet->freeQueueEntry, octoMap->octoNodeSet->fullQueueEntry, 
-        octoMap->octoNodeSet->length, octoMap->octoNodeSet->numFree, octoMap->octoNodeSet->numOccupied);
-        
     // int updateTime = 0;
     // // double startTime = pi_time();
     // while(1) {
@@ -128,5 +116,5 @@ void OctoMapTest(void)
 int main(void)
 {
     pi_bsp_init();
-    return pmsis_kickoff((void *)OctoMapTest);
+    return pmsis_kickoff((void *)OctoMapTesrTask);
 }
