@@ -95,27 +95,28 @@ void CPXListeningInit(void)
 void OctoMapTestTask(void)
 {
     cpxInit();
-    while (1) {
-        cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Hello world\n");
-        pi_time_wait_us(1000*1000);
-    }
-    
-    // octoMap_t* octoMap = &octoMapData;
-    // mapInit();
-
-    // int updateTime = 0;
-    // // double startTime = pi_time();
-    // while(1) {
-    //     coordinate_t startPoint = {0, 0, 0};
-    //     coordinate_t endPoint = {100, 100, 100};
-    //     octoTreeRayCasting(octoMap->octoTree, octoMap, &startPoint, &endPoint);
-    //     updateTime++;
-    //     if (updateTime % 1000 == 0) {
-    //         // double endTime = pi_time();
-    //         cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Update %d times, time: %f\n", updateTime);
-    //         // startTime = endTime;
-    //     }
+    // while (1) {
+    //     cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Hello world\n");
+    //     pi_time_wait_us(1000*1000);
     // }
+    
+    octoMap_t* octoMap = &octoMapData;
+    mapInit();
+
+    int updateTime = 0;
+    // double startTime = pi_time();
+    while(1) {
+        coordinate_t startPoint = {0, 0, 0};
+        coordinate_t endPoint = {100, 100, 100};
+        octoTreeRayCasting(octoMap->octoTree, octoMap, &startPoint, &endPoint);
+        updateTime++;
+        if (updateTime % 1000 == 0) {
+            // double endTime = pi_time();
+            cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Update %d times, time: %f\n", updateTime);
+            // startTime = endTime;
+            pi_time_wait_us(1000*1000);
+        }
+    }
 }
 
 // void start_example(void)
