@@ -107,14 +107,13 @@ void OctoMapTestTask(void)
     // double startTime = pi_time();
     while(1) {
         coordinate_t startPoint = {0, 0, 0};
-        coordinate_t endPoint = {100, 100, 100};
+        coordinate_t endPoint = {255, 255, 255};
         octoTreeRayCasting(octoMap->octoTree, octoMap, &startPoint, &endPoint);
         updateTime++;
-        if (updateTime % 10000 == 0) {
+        if (updateTime % 1000 == 0) {
             // double endTime = pi_time();
             cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Update %d times, time: %f\n", updateTime);
             // startTime = endTime;
-            pi_time_wait_us(1000*1000);
         }
     }
 }

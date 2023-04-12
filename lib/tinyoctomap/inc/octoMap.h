@@ -24,8 +24,8 @@ typedef short setIndex_t;
 #define TREE_CENTER_X 128
 #define TREE_CENTER_Y 128
 #define TREE_CENTER_Z 128
-#define TREE_RESOLUTION 4
-#define TREE_MAX_DEPTH 6
+#define TREE_RESOLUTION 1
+#define TREE_MAX_DEPTH 8
 
 #define LOG_ODDS_OCCUPIED 6
 #define LOG_ODDS_FREE 0
