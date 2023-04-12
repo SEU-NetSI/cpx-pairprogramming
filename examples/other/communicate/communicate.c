@@ -96,16 +96,16 @@ void OctoMapTest(void)
 {
     octoMap_t* octoMap = &octoMapData;
     int updateTime = 0;
-    double startTime = pi_time();
+    // double startTime = pi_time();
     while(1) {
         coordinate_t startPoint = {0, 0, 0};
         coordinate_t endPoint = {100, 100, 100};
-        octoTreeRayCasting(octoMap->octoTree, octoMap, startPoint, endPoint);
+        octoTreeRayCasting(octoMap->octoTree, octoMap, &startPoint, &endPoint);
         updateTime++;
         if (updateTime % 1000 == 0) {
-            double endTime = pi_time();
-            cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Update %d times, time: %f\n", updateTime, endTime - startTime);
-            startTime = endTime;
+            // double endTime = pi_time();
+            cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Update %d times, time: %f\n", updateTime);
+            // startTime = endTime;
         }
     }
 }
