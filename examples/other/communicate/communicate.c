@@ -114,8 +114,18 @@ void OctoMapTesrTask(void)
     // }
 }
 
+void start_example(void)
+{
+  pi_bsp_init();
+  cpxInit();
+   while (1)
+  {
+      cpxPrintToConsole(LOG_TO_CRTP, "Hello World\n");
+      pi_time_wait_us(1000*1000);
+  }
+}
+
 int main(void)
 {
-    pi_bsp_init();
-    return pmsis_kickoff((void *)OctoMapTesrTask);
+    return pmsis_kickoff((void *)start_example);
 }
