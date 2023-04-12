@@ -113,5 +113,5 @@ void OctoMapTest(void)
 int main(void)
 {
     pi_bsp_init();
-    return pmsis_kickoff((void *)CPXListeningTask);
+    return pmsis_kickoff((void *)OctoMapTest);
 }
