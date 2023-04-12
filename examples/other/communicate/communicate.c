@@ -92,10 +92,14 @@ void CPXListeningInit(void)
     }
 }
 
-void OctoMapTesrTask(void)
+void OctoMapTestTask(void)
 {
     cpxInit();
-    cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Hello world\n");
+    while (1) {
+        cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Hello world\n");
+        pi_time_wait_us(1000*1000);
+    }
+    
     // octoMap_t* octoMap = &octoMapData;
     // mapInit();
 
@@ -114,18 +118,19 @@ void OctoMapTesrTask(void)
     // }
 }
 
-void start_example(void)
-{
-  pi_bsp_init();
-  cpxInit();
-   while (1)
-  {
-      cpxPrintToConsole(LOG_TO_CRTP, "Hello World\n");
-      pi_time_wait_us(1000*1000);
-  }
-}
+// void start_example(void)
+// {
+//   pi_bsp_init();
+//   cpxInit();
+//    while (1)
+//   {
+//       cpxPrintToConsole(LOG_TO_CRTP, "Hello World\n");
+//       pi_time_wait_us(1000*1000);
+//   }
+// }
 
 int main(void)
 {
-    return pmsis_kickoff((void *)start_example);
+    pi_bsp_init();
+    return pmsis_kickoff((void *)OctoMapTestTask);
 }
