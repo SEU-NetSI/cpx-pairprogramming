@@ -94,9 +94,10 @@ void CPXListeningInit(void)
 
 void OctoMapTesrTask(void)
 {
+    cpxInit();
     cpxPrintToConsole(LOG_TO_CRTP, "[GAP8-Edge]Hello world\n");
-    // octoMap_t* octoMap = &octoMapData;
-    // mapInit();
+    octoMap_t* octoMap = &octoMapData;
+    mapInit();
 
     // int updateTime = 0;
     // // double startTime = pi_time();
